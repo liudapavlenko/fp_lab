@@ -92,6 +92,6 @@ CL-USER> (append new_var '(1 B))
 ; SLIME 2.24
 CL-USER> (set 'lst '(d e f))
 (D E F)
-CL-USER> (list lst (rest lst) 'f 4)
+CL-USER> (list lst (rest lst) (third lst) 4)
 ((D E F) (E F) F 4)
 ```
