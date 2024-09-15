@@ -87,6 +87,7 @@ CL-USER> (append new_var '(1 B))
 <p align="center">
 <img src="lab-1-variant7.png">
 </p>
+
 ```lisp
 ; SLIME 2.24
 CL-USER> (set 'lst '(d e f))
