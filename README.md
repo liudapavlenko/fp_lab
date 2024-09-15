@@ -36,7 +36,7 @@
   Об'єднайте створений список з одним із його непустих підсписків. Для цього
 використайте функцію APPEND .
   
-```lisp <
+```lisp 
 ; SLIME 2.24
 ;;Пункт 1
 CL-USER> (defvar new_var nil)
@@ -79,15 +79,15 @@ NIL
 ;;Пункт 8
 CL-USER> (append new_var '(1 B))
 (1 A 8 (1 B) NIL 1 B)
->```
+```
 ## Варіант <7>
 <p align="center">
 <img src="lab-1-variant7.png">
 </p>
 ```lisp
-<; SLIME 2.24
+; SLIME 2.24
 CL-USER> (set 'lst '(d e f))
 (D E F)
 CL-USER> (list lst (rest lst) 'f 4)
-((D E F) (E F) F 4)>
+((D E F) (E F) F 4)
 ```
