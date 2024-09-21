@@ -40,7 +40,6 @@
 використайте функцію APPEND .
   
 ```lisp 
-; SLIME 2.24
 ;;Пункт 1
 CL-USER> (defvar new_var nil)
 NEW_VAR
@@ -89,7 +88,6 @@ CL-USER> (append new_var '(1 B))
 </p>
 
 ```lisp
-; SLIME 2.24
 CL-USER> (set 'lst '(d e f))
 (D E F)
 CL-USER> (list lst (rest lst) (third lst) 4)
