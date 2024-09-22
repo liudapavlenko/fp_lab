@@ -45,46 +45,46 @@
   
 ```lisp 
 ;;Пункт 1
-CL-USER> (defvar new_var nil)
-NEW_VAR
-CL-USER> (setq new_var (cons 1 (list 'a 8 (list 1 'b) '())))
+CL-USER> (defvar new-var nil)
+NEW-VAR
+CL-USER> (setq new-var (cons 1 (list 'a 8 (list 1 'b) '())))
 (1 A 8 (1 B) NIL)
 ;;Пункт 2
-CL-USER> (car new_var)
+CL-USER> (car new-var)
 1
 ;;Пункт 3
-CL-USER> (cdr new_var)
+CL-USER> (cdr new-var)
 (A 8 (1 B) NIL)
 ;;Пункт 4
-CL-USER> (third new_var)
+CL-USER> (third new-var)
 8
 ;;Пункт 5
-CL-USER> (last new_var)
+CL-USER> (last new-var)
 (NIL)
 ;;Пункт 6
-CL-USER> (atom (car new_var))
+CL-USER> (atom (car new-var))
 T
-CL-USER> (atom (second new_var))
+CL-USER> (atom (second new-var))
 T
-CL-USER> (atom (nth 3 new_var))
+CL-USER> (atom (nth 3 new-var))
 NIL
 
-CL-USER> (listp (car new_var))
+CL-USER> (listp (car new-var))
 NIL
-CL-USER> (listp (second new_var))
+CL-USER> (listp (second new-var))
 NIL
-CL-USER> (listp (nth 3 new_var))
+CL-USER> (listp (nth 3 new-var))
 T
 ;;Пункт 7
-CL-USER> (eql (car new_var) (third new_var))
+CL-USER> (eql (car new-var) (third new-var))
 NIL
-CL-USER> (equal (car new_var) (third new_var))
+CL-USER> (equal (car new-var) (third new-var))
 NIL
-CL-USER> (equalp (car new_var) (third new_var))
+CL-USER> (equalp (car new-var) (third new-var))
 NIL
 ;;Пункт 8
-CL-USER> (append new_var '(1 B))
-(1 A 8 (1 B) NIL 1 B)
+CL-USER> (append new-var (list (fourth new-var)))
+(1 A 8 (1 B) NIL (1 B))
 ```
 ## Варіант 7
 <p align="center">
