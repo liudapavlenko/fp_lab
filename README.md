@@ -94,6 +94,6 @@ CL-USER> (append new-var (list (fourth new-var)))
 ```lisp
 CL-USER> (set 'lst '(d e f))
 (D E F)
-CL-USER> (list lst (rest lst) (third lst) 4)
-((D E F) (E F) F 4)
+CL-USER> (list lst (rest lst) (list (third lst)) 4)
+((D E F) (E F) (F) 4)
 ```
