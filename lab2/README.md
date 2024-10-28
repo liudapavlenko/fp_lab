@@ -50,9 +50,19 @@ CL-USER> (delete-duplicates '(1 1 2 3 3 3 2 2 a a a b) 3)
 
 ```
 
-## Лістинг функції <назва першої функції>
+## Лістинг функції spread-values1
 ```lisp
-<Лістинг реалізації першої функції>
+
+CL-USER> (defun spread-values1 (lst &optional (num1 nil))
+  (if (null lst)
+      nil
+      (if (null (car lst))
+          (cons num1 (spread-values1 (cdr lst) num1))  
+          (cons (car lst) (spread-values1 (cdr lst) (car lst))))))
+SPREAD-VALUES1
+CL-USER> (spread-values1 '(nil 1 2 nil 3 nil nil 4 5))
+(NIL 1 2 2 3 3 3 4 5)
+
 ```
 
 ### Тестові набори
@@ -64,9 +74,27 @@ CL-USER> (delete-duplicates '(1 1 2 3 3 3 2 2 a a a b) 3)
 ```lisp
 <Виклик і результат виконання тестів першої функції>
 ```
-## Лістинг функції <назва другої функції>
+## Лістинг функції new-delete-duplicates
 ```lisp
-<Лістинг реалізації другої функції>
+
+CL-USER> (defun repeat-list (elem count num-max) 
+  (cond 
+    ((null elem) nil) 
+    ((>= count num-max) (list elem)) 
+    ((<= count 0) nil) 
+    (t (cons elem (repeat-list elem (1- count) num-max)))))
+REPEAT-LIST
+CL-USER> (defun new-delete-duplicates (lst num-max &optional (num nil) (count 1))
+  (cond 
+    ((null lst) (repeat-list num count num-max))  
+    ((eq num (car lst))  
+     (new-delete-duplicates (cdr lst) num-max num (1+ count)))  
+    (t (append (repeat-list num count num-max) 
+               (new-delete-duplicates (cdr lst) num-max (car lst) 1)))))
+NEW-DELETE-DUPLICATES
+CL-USER> (new-delete-duplicates '(1 1 2 3 3 3 2 2 a a a b) 3)
+(1 1 2 3 2 2 A B)
+
 ```
 ### Тестові набори
 ```lisp
