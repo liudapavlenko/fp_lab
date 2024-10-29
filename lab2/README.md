@@ -68,9 +68,9 @@ CL-USER> (spread-values1 '(nil 1 2 nil 3 nil nil 4 5))
 ### Тестові набори
 ```lisp
 
-(defun check-spread-values1 (name input expected)
+(defun out-test-spread-values1 (name input expected)
   "Execute `spread-values1' on `input', compare result with `expected' and print comparison status."
-  (format t "~:[FAILED~;passed~]... ~a~%"
+  (format t "~:[FAILED~;passed~]: ~a~%"
           (equal (spread-values1 input) expected)
           name))
 
@@ -79,18 +79,19 @@ CL-USER> (spread-values1 '(nil 1 2 nil 3 nil nil 4 5))
 ### Тестування
 ```lisp
 CL-USER> (defun test-spread-values1 ()
-  (check-spread-values1 "test 1" '(nil 1 2 nil 3 nil nil 4 5) '(nil 1 2 2 3 3 3 4 5))
-  (check-spread-values1 "test 2" '(1 2 3 nil nil nil) '(1 2 3 3 3 3))
-  (check-spread-values1 "test 3" '(nil nil 1 nil 2 3 nil) '(nil nil 1 1 2 3 3))
-  (check-spread-values1 "test 4" '(1 nil nil 2 nil nil) '(1 1 1 2 2 2))
-  (check-spread-values1 "test 5" '() '()))
+  (out-test-spread-values1 "test 1" '(nil 1 2 nil 3 nil nil 4 5) '(nil 1 2 2 3 3 3 4 5))
+  (out-test-spread-values1 "test 2" '(1 2 3 nil nil nil) '(1 2 3 3 nil nil))
+  (out-test-spread-values1 "test 3" '(nil nil 1 nil 2 3 nil) '(nil 1 1 1 2 3 3))
+  (out-test-spread-values1 "test 4" '(1 nil nil 2 nil nil) '(1 1 1 2 2 2))
+  (out-test-spread-values1 "test 5" '() '()))
 TEST-SPREAD-VALUES1
+
 CL-USER> (test-spread-values1)
-passed... test 1
-passed... test 2
-passed... test 3
-passed... test 4
-passed... test 5
+passed: test 1
+FAILED: test 2
+FAILED: test 3
+passed: test 4
+passed: test 5
 NIL
 ```
 ## Лістинг функції new-delete-duplicates
@@ -118,9 +119,9 @@ CL-USER> (new-delete-duplicates '(1 1 2 3 3 3 2 2 a a a b) 3)
 ### Тестові набори
 ```lisp
 
-CL-USER> (defun check-new-delete-duplicates (name input num-max expected)
+CL-USER> (defun out-test-new-delete-duplicates (name input num-max expected)
   "Execute `new-delete-duplicates' on `input', compare result with `expected' and print comparison status."
-  (format t "~:[FAILED~;passed~]... ~a~%"
+  (format t "~:[FAILED~;passed~]: ~a~%"
           (equal (new-delete-duplicates input num-max) expected)
           name))
 
@@ -128,18 +129,19 @@ CL-USER> (defun check-new-delete-duplicates (name input num-max expected)
 ### Тестування
 ```lisp
 CL-USER> (defun test-new-delete-duplicates ()
-  (check-new-delete-duplicates "test 1" '(1 1 2 3 3 3 2 2 a a a b) 3 '(1 1 2 3 2 2 A B))
-  (check-new-delete-duplicates "test 2" '(1 1 1 2 2 2 3 3) 2 '(1 1 2 2 3))
-  (check-new-delete-duplicates "test 3" '(a a a b b b c) 2 '(A B C))
-  (check-new-delete-duplicates "test 4" '(1 nil nil 2 nil 3) 1 '(1 NIL 2 NIL 3))
-  (check-new-delete-duplicates "test 5" '() 3 '()))
+  (out-test-new-delete-duplicates "test 1" '(1 1 2 3 3 3 2 2 a a a b) 3 '(1 1 2 3 2 2 A B))
+  (out-test-new-delete-duplicates "test 2" '(1 1 1 2 2 2 3 3) 2 '(1 1 2 2 3))
+  (out-test-new-delete-duplicates "test 3" '(a a a b b b c) 2 '(A B C))
+  (out-test-new-delete-duplicates "test 4" '(1 nil nil 2 nil 3) 1 '(1 NIL 2 NIL 3))
+  (out-test-new-delete-duplicates "test 5" '(8 8 8 8 8 8 8 6 6 6 6 6) 7 '(8 6 6 6 6 6)))
 TEST-NEW-DELETE-DUPLICATES
+
 CL-USER> (test-new-delete-duplicates)
-passed... test 1
-FAILED... test 2
-passed... test 3
-FAILED... test 4
-passed... test 5
+passed: test 1
+FAILED: test 2
+passed: test 3
+FAILED: test 4
+passed: test 5
 NIL
 
 ```
