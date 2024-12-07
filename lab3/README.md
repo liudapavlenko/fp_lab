@@ -44,35 +44,88 @@ CL-USER> (defun shell-alg-loop2 (lst k i)
     (shell-alg-loop3 lst k i)
     (shell-alg-loop2 lst k (1+ i))))
 SHELL-ALG-LOOP2
-CL-USER> (defun shell-alg (lst k)
+CL-USER> (defun functional-shell-alg (lst k)
   (if k
       (progn
         (shell-alg-loop2 lst (car k) (car k))
-        (shell-alg  lst (cdr k)))
+        (functional-shell-alg  lst (cdr k)))
       lst))
-SHELL-ALG
-CL-USER> (shell-alg '(9 8 3 7 5 6 4 2 1) '(4 2 1))
-(1 2 3 4 5 6 7 8 9)
-CL-USER> 
+FUNCTIONAL-SHELL-ALG
+
 ```
 
 ### Тестові набори
 ```lisp
-<Лістинг реалізації тестових наборів>
+
+ (defun check-functional-shell-alg (name input1 input2 expected)
+ (format t "~:[FAILED~;passed~]... ~a~%"
+ (equal (functional-shell-alg input1 input2) expected)
+ name))
+CHECK-FUNCTIONAL-SHELL-ALG
+
+CL-USER> (defun test-functional-shell-alg ()
+           (check-functional-shell-alg "test1" '(8 7 5 4 2 9) '(4 2 1) '(2 4 5 7 8 9))
+           (check-functional-shell-alg "test2" '(8 7 6 5 4 3 2 1) '(4 2 1) '(1 2 3 4 5 6 7 8))
+           (check-functional-shell-alg "test3" '(1 2 3 4 5 6 7 8) '(4 2 1) '(1 2 3 4 5 6 7 8))
+           (check-functional-shell-alg "test4" '(2 2 9 9 2 2 3 3 6 6) '(4 2 1) '(2 2 2 2 3 3 6 6 9 9))
+           (check-functional-shell-alg "test5" '(9 1 1 9 5 9) '(4 2 1) '(1 1 5 9 9 9)))
+TEST-FUNCTIONAL-SHELL-ALG
+
 ```
 ### Тестування
 ```lisp
-<Виклик і результат виконання тестів>
+
+CL-USER> (test-functional-shell-alg)
+passed... test1
+passed... test2
+passed... test3
+passed... test4
+passed... test5
+NIL
+CL-USER>
+
 ```
+
 ## Лістинг функції з використанням деструктивного підходу
 ```lisp
-<Лістинг реалізації з використанням деструктивного підходу>
+CL-USER> (defun imper-shell-sort (lst k)
+  (let ((list-one (copy-list lst)))
+    (dolist (kt k)
+      (loop for i from kt below (length list-one) do
+            (let ((num (elt list-one i))
+                  (j i))
+              (loop while (and (>= j kt)
+                               (< num (elt list-one (- j kt)))) do
+                    (setf (elt list-one j) (elt list-one (- j kt)))
+                    (setf j (- j kt)))
+              (setf (elt list-one j) num))))
+    list-one))
+IMPER-SHELL-SORT
+
 ```
 ### Тестові набори
 ```lisp
-<Лістинг реалізації тестових наборів>
+CL-USER> (defun check-imper-shell-sort (name input1 input2 expected)
+ (format t "~:[FAILED~;passed~]... ~a~%"
+ (equal (imper-shell-sort input1 input2) expected)
+ name))
+CHECK-IMPER-SHELL-SORT
+CL-USER> (defun test-imper-shell-sort()
+           (check-imper-shell-sort "test1" '(8 2 1 4 2 1) '(4 2 1) '(1 1 2 2 4 8))
+           (check-imper-shell-sort "test2" '(7 6 5 4 3 2 1) '(4 2 1) '(1 2 3 4 5 6 7))
+           (check-imper-shell-sort "test3" '(1 2 3 4 5 6 7) '(4 2 1) '(1 2 3 4 5 6 7))
+           (check-imper-shell-sort "test4" '(2 2 9 9 2 2 3 3 6 6) '(4 2 1) '(2 2 2 2 3 3 6 6 9 9))
+           (check-imper-shell-sort "test5" '(9 1 1 9 5 9) '(4 2 1) '(1 1 5 9 9 9)))
+TEST-IMPER-SHELL-SORT
 ```
 ### Тестування
 ```lisp
-<Виклик і результат виконання тестів>
+CL-USER> (test-imper-shell-sort)
+passed... test1
+passed... test2
+passed... test3
+passed... test4
+passed... test5
+NIL
+CL-USER> 
 ```
