@@ -24,7 +24,31 @@
 Алгоритм сортування Шелла за незменшенням.
 ## Лістинг реалізації першої частини завдання
 ```lisp
-;;; Лістинг реалізації
+(defun shell-alg-loop3 (lst keys k j &key (test #'<))
+  (if (and (>= j k)
+           (funcall test (nth j keys) (nth (- j k) keys)))
+      (progn
+        (rotatef (nth j lst) (nth (- j k) lst))
+        (rotatef (nth j keys) (nth (- j k) keys))
+        (shell-alg-loop3 lst keys k (- j k) :test test))
+      lst))
+
+(defun shell-alg-loop2 (lst keys k i len &key (test #'<))
+  (if (< i len)
+      (progn
+        (shell-alg-loop3 lst keys k i :test test)
+        (shell-alg-loop2 lst keys k (1+ i) len :test test))
+      lst))
+
+(defun functional-shell-alg (lst &key (gaps '(4 2 1)) (key #'identity) (test #'<))
+  (let ((lst-copy (copy-list lst))
+        (keys (mapcar key lst))) 
+    (if (and gaps (listp gaps))
+        (progn
+          (let ((len (length lst-copy)))
+            (shell-alg-loop2 lst-copy keys (car gaps) (car gaps) len :test test))
+          (functional-shell-alg lst-copy :gaps (cdr gaps) :key key :test test))
+        lst-copy)))
 ```
 ### Тестові набори та утиліти першої частини
 ```lisp
