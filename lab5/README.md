@@ -47,12 +47,12 @@
     (when stream
       (let ((header (mapcar (lambda (x) 
                               (intern (string-trim '(#\Space #\,) x) 'keyword))
-                            (delimited-string (read-line stream) #\,)))) ; Process headers
+                            (delimited-string (read-line stream) #\,)))) 
         (loop for line = (read-line stream nil)
               while line
               collect
               (let ((values (mapcar (lambda (x) (string-trim '(#\Space #\,) x))
-                                    (delimited-string line #\,)))) ; Trim each value
+                                    (delimited-string line #\,)))) 
                 (let ((record (loop for key in header
                                     for val in values
                                     collect (cons key val))))
