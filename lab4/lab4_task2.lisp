@@ -1,14 +1,13 @@
 ; SLIME 2.24
 CL-USER> (defun add-next-fn (&key (transform #'identity))
-  "Створює замикання, що формує пари (попередній . поточний)."
   (let ((previous nil))
     (lambda (current)
       (let ((transformed-current (funcall transform current)))
         (prog1
             (if previous
-                (cons previous transformed-current) ; Використовуємо вже трансформоване previous
+                (cons previous transformed-current) 
                 nil)
-          (setf previous transformed-current)))))) ; Зберігаємо трансформоване current
+          (setf previous transformed-current)))))) 
 
 ADD-NEXT-FN
 CL-USER>  (mapcar (add-next-fn) '(1 2 3))
@@ -18,10 +17,9 @@ CL-USER> (mapcar (add-next-fn :transform #'1+) '(1 2 3))
 CL-USER> (mapcar (add-next-fn :transform #'1-) '(9 1 1 9 5 9))
 (NIL (8 . 0) (0 . 0) (0 . 8) (8 . 4) (4 . 8))
 CL-USER>  (defun check-add-next-fn (name lst expected &key (transform #'identity))
-  "Перевіряє роботу add-next-fn з вхідними даними lst і очікуваним результатом expected."
   (let ((res (mapcar (add-next-fn :transform transform) lst)))
     (format t "~:[FAILED~;PASSED~]... ~a~%" 
-            (equal res expected)  ; Порівнюємо результат з очікуваним.
+            (equal res expected)  
             name)))
 CHECK-ADD-NEXT-FN
 CL-USER> (defun test-add-next-fn ()
