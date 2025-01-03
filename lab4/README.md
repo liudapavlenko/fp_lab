@@ -121,10 +121,9 @@ CL-USER> (mapcar (add-next-fn :transform #'1+) '(1 2 3))
 ### Тестові набори та утиліти другої частини
 ```lisp
 (defun check-add-next-fn (name lst expected &key (transform #'identity))
-  "Перевіряє роботу add-next-fn з вхідними даними lst і очікуваним результатом expected."
   (let ((res (mapcar (add-next-fn :transform transform) lst)))
     (format t "~:[FAILED~;PASSED~]... ~a~%" 
-            (equal res expected)  ; Порівнюємо результат з очікуваним.
+            (equal res expected) 
             name)))
 (defun test-add-next-fn ()
   (check-add-next-fn "test1" '(1 2 3) '(NIL (1 . 2) (2 . 3)))
